@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/atrb/decision.schema.json",
+  "title": "ATRB decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id", "condition", "accepted", "settled", "decision", "reusable",
+    "action_allowed", "detected_failures", "residuals", "obligations", "evidence_used",
+    "notes", "time_to_verified_result_ms", "execution_cost_units"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^C[0-9]{3}$"},
+    "condition": {"type": "string"},
+    "accepted": {"type": "boolean"},
+    "settled": {"type": "boolean"},
+    "decision": {"enum": ["accept", "reject", "parse_failed"]},
+    "reusable": {"type": "boolean"},
+    "action_allowed": {"type": "boolean"},
+    "detected_failures": {"type": "array", "items": {"type": "string"}},
+    "residuals": {"type": "array", "items": {"type": "string"}},
+    "obligations": {"type": "array", "items": {"type": "string"}},
+    "evidence_used": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "string"},
+    "time_to_verified_result_ms": {"type": "number", "minimum": 0},
+    "execution_cost_units": {"type": "number", "minimum": 0}
+  }
+}

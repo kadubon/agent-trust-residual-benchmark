@@ -1,0 +1,2 @@
+Return only one JSON object with the keys accepted, reusable, action_allowed, and rationale.
+Do not use Markdown. The three decision fields must be booleans and rationale must be a string.

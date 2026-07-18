@@ -1,0 +1,3 @@
+Treat the agent output as candidate work. Independently validate evidence, authority, nonce,
+provenance, unresolved obligations, human overrides, workcell independence, and time windows.
+Unknown values must remain unknown. Provider receipts are not real-world outcome observations.

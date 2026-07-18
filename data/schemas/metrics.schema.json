@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/atrb/metrics.schema.json",
+  "title": "ATRB metrics",
+  "type": "object",
+  "required": ["case_count", "condition_count", "decision_count", "metric_semantics", "conditions"],
+  "properties": {
+    "case_count": {"type": "integer", "minimum": 1},
+    "condition_count": {"const": 6},
+    "decision_count": {"type": "integer", "minimum": 6},
+    "metric_semantics": {"type": "object"},
+    "conditions": {
+      "type": "object",
+      "required": ["raw_model_output", "pic_only", "pic_fost", "pic_fost_pfg", "ccr_independent_workcells", "fcc_temporal_claims"],
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "time_to_verified_result_ms", "verification_yield",
+          "expected_failures_detected_count", "expected_failures_total_count",
+          "residual_half_life_steps", "false_promotion_rate", "false_promotion_count",
+          "expected_reject_case_count", "non_independent_consensus_detection_rate",
+          "non_independent_consensus_detected_count", "non_independent_consensus_case_count",
+          "estimated_human_review_minutes", "execution_cost_units", "reusable_artifact_rate",
+          "reusable_artifact_count", "accepted_count", "accepted_rate",
+          "action_allowed_count", "action_allowed_rate", "rejected_count",
+          "parse_failed_count", "decision_total_count"
+        ]
+      }
+    }
+  }
+}

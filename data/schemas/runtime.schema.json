@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/atrb/runtime.schema.json",
+  "title": "ATRB runtime record",
+  "type": "object",
+  "required": [
+    "started_at", "finished_at", "measurement_scope", "wall_clock_ms",
+    "model_call_count", "model_elapsed_total_ms", "model_elapsed_mean_ms",
+    "model_elapsed_median_ms", "model_elapsed_min_ms", "model_elapsed_max_ms",
+    "non_model_overhead_ms", "parse_status_counts", "environment",
+    "reproducibility_note"
+  ],
+  "properties": {
+    "started_at": {"type": "string", "format": "date-time"},
+    "finished_at": {"type": "string", "format": "date-time"},
+    "wall_clock_ms": {"type": "number", "minimum": 0},
+    "model_call_count": {"type": "integer", "minimum": 1},
+    "model_elapsed_total_ms": {"type": "number", "minimum": 0},
+    "parse_status_counts": {"type": "object"},
+    "environment": {"type": "object"}
+  }
+}

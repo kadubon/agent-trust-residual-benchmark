@@ -1,0 +1,82 @@
+{
+  "bundle_version": "0.1",
+  "case_count": 18,
+  "condition_count": 6,
+  "files": [
+    {
+      "bytes": 521,
+      "path": "config.json",
+      "sha256": "abe77e77da0ed91d053c8f2599fc709bcf34e1e6c2dc248bd9056afc3d4cf88f"
+    },
+    {
+      "bytes": 36898,
+      "path": "cases.normalized.json",
+      "sha256": "5ff72de5ce23e4be9ab641696d9d9f45ee460c6339bd635b7ffc52c42b1e5963"
+    },
+    {
+      "bytes": 10052,
+      "path": "raw_outputs.jsonl",
+      "sha256": "bc1ca1c75160fef0824c0aff08810ea5e90e2e6f65ee5cf8bb24920c4f18b116"
+    },
+    {
+      "bytes": 84173,
+      "path": "decisions.jsonl",
+      "sha256": "215d2c68d99c208eec2788c08b80d0db3e32613cc3273005e33ef286901453e2"
+    },
+    {
+      "bytes": 14549,
+      "path": "residuals.jsonl",
+      "sha256": "53e6058f5b5b11fe55f9722300212321d9b8a1be0d3e10ed2e5fe68b830f713f"
+    },
+    {
+      "bytes": 31519,
+      "path": "ledgers.jsonl",
+      "sha256": "38cb47b7a866dab5b538a12b4de10eb5ceb4643c4398d7721997c34d1c3d800e"
+    },
+    {
+      "bytes": 6404,
+      "path": "metrics.json",
+      "sha256": "d42d1c8c6602e028e0286284dcb864b5eae676fa3b1fc8630bae538e46c71f72"
+    },
+    {
+      "bytes": 941,
+      "path": "runtime.json",
+      "sha256": "7d3421983d6b2d007c6cee2c2d081cb1ee2f76768b4b17fb5af17b87125e3f9a"
+    },
+    {
+      "bytes": 2711,
+      "path": "result_summary.json",
+      "sha256": "edbf248116df24b1a847eadbfbc31f3a8cb29fb7e2aea8ca56fe2be0570ecefb"
+    },
+    {
+      "bytes": 6769,
+      "path": "report.md",
+      "sha256": "77411237477c2e2a1b5bef581e45717c07d70aa235d92884ce43112f9eb0d94d"
+    },
+    {
+      "bytes": 19513,
+      "path": "failure_log.md",
+      "sha256": "7ef0e25b5d99464ad5d0929855039da962615919aba6c3e5fb04bbccc3ec8a39"
+    },
+    {
+      "bytes": 802,
+      "path": "demo_script.md",
+      "sha256": "4b1bed45e36de86efacb48cde9575f0f11b3130fea6fd676da494a496454944a"
+    },
+    {
+      "bytes": 956,
+      "path": "safety_audit.json",
+      "sha256": "edf70ed421646c2f1ad23843f98a6cc14a4f3ecf1ca8964981c65eedcc755c6d"
+    }
+  ],
+  "generated_at": "2026-07-18T10:31:16.015293+00:00",
+  "mode": "ollama",
+  "model": "qwen3.6:35b-a3b",
+  "safety_audit_status": "pass",
+  "sanitization_actions": [
+    "Replaced the absolute cases path with data/cases.json.",
+    "Regenerated demo commands with repository-relative paths.",
+    "Copied only allowlisted experiment artifacts."
+  ],
+  "source_run_label": "ollama"
+}

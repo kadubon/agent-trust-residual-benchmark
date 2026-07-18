@@ -1,0 +1,26 @@
+{
+  "environment": {
+    "hostname_recorded": false,
+    "machine": "AMD64",
+    "operating_system": "Windows",
+    "operating_system_release": "10",
+    "python_version": "3.11.12"
+  },
+  "finished_at": "2026-07-18T10:15:58.496034+00:00",
+  "measurement_scope": "Case loading through decision and metric aggregation; excludes final artifact writes.",
+  "model_call_count": 18,
+  "model_elapsed_max_ms": 117481.125,
+  "model_elapsed_mean_ms": 12559.975,
+  "model_elapsed_median_ms": 6476.58,
+  "model_elapsed_min_ms": 5073.279,
+  "model_elapsed_total_ms": 226079.553,
+  "non_model_overhead_ms": 88.915,
+  "parse_status_counts": {
+    "parse_failed": 0,
+    "request_failed": 0,
+    "valid": 18
+  },
+  "reproducibility_note": "Runtime metadata varies by host and run; deterministic mock decisions and metrics remain reproducible.",
+  "started_at": "2026-07-18T10:12:12.327686+00:00",
+  "wall_clock_ms": 226168.469
+}

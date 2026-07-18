@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/atrb/result_summary.schema.json",
+  "title": "ATRB scientific result summary",
+  "type": "object",
+  "required": [
+    "summary_type", "observed", "data_integrity", "supported_findings",
+    "unsupported_inferences", "validity_status"
+  ],
+  "properties": {
+    "summary_type": {"const": "fixture_conformance_summary"},
+    "observed": {"type": "object"},
+    "data_integrity": {"type": "object"},
+    "supported_findings": {"type": "array", "items": {"type": "object"}},
+    "unsupported_inferences": {"type": "array", "items": {"type": "string"}},
+    "validity_status": {
+      "enum": ["fixture_conformance_complete", "fixture_conformance_has_mismatches"]
+    }
+  }
+}

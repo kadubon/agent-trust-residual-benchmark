@@ -1,0 +1,22 @@
+{
+  "base_url": "http://localhost:11434",
+  "case_ids": null,
+  "cases_path": "data/cases.json",
+  "conditions": [
+    "raw_model_output",
+    "pic_only",
+    "pic_fost",
+    "pic_fost_pfg",
+    "ccr_independent_workcells",
+    "fcc_temporal_claims"
+  ],
+  "evaluation_time": "2026-07-18T09:10:00Z",
+  "mock_fallback_used": false,
+  "mode": "ollama",
+  "model": "qwen3.6:35b-a3b",
+  "requested_mode": "ollama",
+  "stream": false,
+  "temperature": 0.0,
+  "think": false,
+  "timeout_seconds": 120.0
+}

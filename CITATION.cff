@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software or its published benchmark results, cite this release
+  and the exact repository revision used for the experiment.
+title: Agent Trust and Residual Benchmark
+type: software
+version: 0.1.0
+date-released: 2026-07-18
+authors:
+  - name: Agent Trust and Residual Benchmark contributors
+abstract: >-
+  A local, reproducible benchmark for measuring how progressively layered checks
+  handle evidence, authority, provenance, temporal claims, and unresolved
+  residual obligations in AI-agent outputs.
+keywords:
+  - AI agents
+  - AI safety
+  - benchmark
+  - LLM evaluation
+  - provenance
+  - reproducibility
+  - trust
+license: Apache-2.0
+repository-code: https://github.com/kadubon/agent-trust-residual-benchmark
+url: https://github.com/kadubon/agent-trust-residual-benchmark/releases/tag/v0.1.0

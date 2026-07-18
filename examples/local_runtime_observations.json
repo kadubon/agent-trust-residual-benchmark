@@ -1,0 +1,44 @@
+{
+  "date": "2026-07-18",
+  "host_scope": "single local Windows host",
+  "model": "qwen3.6:35b-a3b",
+  "ollama_version": "0.23.2",
+  "think": false,
+  "stream": false,
+  "temperature": 0.0,
+  "calibration": {
+    "selection": "three purposively selected representative fixtures",
+    "case_elapsed_seconds": {
+      "C001": 19.979,
+      "C004": 17.036,
+      "C006": 19.824
+    },
+    "mean_seconds": 18.946,
+    "command_wall_clock_seconds": 59.6
+  },
+  "startup_sensitive_observation": {
+    "case_id": "C001",
+    "elapsed_seconds": 85.121,
+    "cache_state_controlled": false,
+    "interpretation": "Operational planning observation; not a controlled cold-start sample."
+  },
+  "repeat_calibration": {
+    "selection": "same three representative fixtures after an uncontrolled idle period",
+    "case_elapsed_seconds": {
+      "C001": 54.426,
+      "C004": 17.895,
+      "C006": 20.747
+    },
+    "benchmark_compute_wall_clock_seconds": 93.157,
+    "interpretation": "The first call shows startup sensitivity; the next two remain near the earlier warm observations."
+  },
+  "full_run_planning": {
+    "target_case_count": 18,
+    "warm_central_minutes": 6.0,
+    "warm_empirical_range_minutes": [5.4, 6.3],
+    "startup_adjusted_minutes": 7.1,
+    "recommended_budget_minutes": [9, 10],
+    "timeout_ceiling_minutes": 36.0,
+    "is_confidence_interval": false
+  }
+}
