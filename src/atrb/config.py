@@ -8,10 +8,15 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_CASES_PATH = PROJECT_ROOT / "data" / "cases.json"
+SOURCE_DATA_ROOT = PROJECT_ROOT / "data"
+PACKAGED_DATA_ROOT = Path(__file__).resolve().parent / "resources" / "data"
+DATA_ROOT = SOURCE_DATA_ROOT if SOURCE_DATA_ROOT.is_dir() else PACKAGED_DATA_ROOT
+DEFAULT_CASES_PATH = DATA_ROOT / "cases.json"
+DEFAULT_V02_CASES_PATH = DATA_ROOT / "cases_v02.json"
 DEFAULT_MODEL = "qwen3.6:35b-a3b"
 DEFAULT_BASE_URL = "http://localhost:11434"
 DEFAULT_EVALUATION_TIME = "2026-07-18T09:10:00Z"
+DEFAULT_V02_EVALUATION_TIME = "2026-07-18T09:30:00Z"
 
 CONDITIONS = (
     "raw_model_output",

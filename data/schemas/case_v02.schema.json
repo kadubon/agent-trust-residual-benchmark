@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/atrb/case-v02.schema.json",
+  "title": "ATRB v0.2 balanced-control benchmark case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id", "title", "category", "control_type", "difficulty", "near_miss",
+    "scenario", "user_task", "agent_output", "evidence_packet", "human_override",
+    "expected_decision", "expected_reusable", "expected_action_allowed",
+    "expected_failures", "expected_residuals", "expected_obligations", "acceptance_scope"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^[NP][0-9]{3}$"},
+    "title": {"type": "string", "minLength": 1},
+    "category": {"type": "string", "minLength": 1},
+    "control_type": {"enum": ["positive", "negative"]},
+    "difficulty": {"enum": ["simple", "near_miss"]},
+    "near_miss": {"type": "boolean"},
+    "scenario": {"type": "string", "minLength": 1},
+    "user_task": {"type": "string", "minLength": 1},
+    "agent_output": {"type": "string", "minLength": 1},
+    "evidence_packet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_id", "agent_registry_bound", "authority_scope", "requested_action",
+        "action_scope", "evidence_scope", "nonce", "nonce_status", "issued_at",
+        "expires_at", "provenance", "expected_source"
+      ],
+      "properties": {
+        "agent_id": {"type": ["string", "null"]},
+        "agent_registry_bound": {"type": "boolean"},
+        "authority_scope": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "requested_action": {"type": "string", "minLength": 1},
+        "action_scope": {"type": "string", "minLength": 1},
+        "evidence_scope": {"type": "string", "minLength": 1},
+        "nonce": {"type": "string", "minLength": 1},
+        "nonce_status": {"enum": ["unused", "consumed"]},
+        "issued_at": {"type": "string", "format": "date-time"},
+        "expires_at": {"type": "string", "format": "date-time"},
+        "observation_time": {"type": ["string", "null"], "format": "date-time"},
+        "claim_horizon": {"type": ["string", "null"]},
+        "provider_receipt": {"type": ["string", "null"]},
+        "receipt_role": {"enum": ["none", "dispatch_only", "outcome_evidence"]},
+        "real_world_observation": {"type": ["string", "null"]},
+        "provenance": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "expected_source": {"type": ["string", "null"]},
+        "prompt_injection_present": {"type": "boolean"},
+        "unknown_fields": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "unknown_preserved": {"type": "boolean"},
+        "external_action": {"type": "boolean"},
+        "rollback_required": {"type": "boolean"},
+        "rollback_available": {"type": "boolean"},
+        "action_target": {"type": ["string", "null"]},
+        "rollback_target": {"type": ["string", "null"]},
+        "reuse_allowed": {"type": "boolean"},
+        "open_residuals": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "residual_status": {"enum": ["none", "open", "resolved"]},
+        "approval": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "approved_by", "expires_at", "scope"],
+          "properties": {
+            "status": {"enum": ["not_required", "approved", "rejected"]},
+            "approved_by": {"type": ["string", "null"]},
+            "expires_at": {"type": ["string", "null"], "format": "date-time"},
+            "scope": {"type": ["string", "null"]}
+          }
+        },
+        "proposer_independence_group": {"type": ["string", "null"]},
+        "verifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["verifier_id", "independence_group", "artifact_source", "verifier_source"],
+          "properties": {
+            "verifier_id": {"type": ["string", "null"]},
+            "independence_group": {"type": ["string", "null"]},
+            "artifact_source": {"type": ["string", "null"]},
+            "verifier_source": {"type": ["string", "null"]}
+          }
+        },
+        "workcells": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "human_override": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason"],
+      "properties": {
+        "status": {"enum": ["none", "approved", "rejected", "cancelled"]},
+        "reason": {"type": ["string", "null"]}
+      }
+    },
+    "expected_decision": {"enum": ["accept", "reject"]},
+    "expected_reusable": {"type": "boolean"},
+    "expected_action_allowed": {"type": "boolean"},
+    "expected_failures": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "expected_residuals": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "expected_obligations": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "acceptance_scope": {"type": "string", "minLength": 1}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"control_type": {"const": "positive"}}},
+      "then": {
+        "properties": {
+          "case_id": {"pattern": "^P[0-9]{3}$"},
+          "expected_decision": {"const": "accept"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"control_type": {"const": "negative"}}},
+      "then": {
+        "properties": {
+          "case_id": {"pattern": "^N[0-9]{3}$"},
+          "expected_decision": {"const": "reject"},
+          "expected_failures": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"near_miss": {"const": true}}},
+      "then": {"properties": {"difficulty": {"const": "near_miss"}}},
+      "else": {"properties": {"difficulty": {"const": "simple"}}}
+    }
+  ]
+}

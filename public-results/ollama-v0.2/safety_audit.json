@@ -1,0 +1,30 @@
+{
+  "allowed_disclosures": [
+    {
+      "field": "localhost Ollama endpoint",
+      "reason": "Loopback configuration is required for reproducibility and is not remote access."
+    },
+    {
+      "field": "coarse OS, architecture, and Python version",
+      "reason": "Non-hostname environment metadata supports runtime interpretation."
+    },
+    {
+      "field": "UTC run timestamps and model identifier",
+      "reason": "Experimental provenance without a personal identifier."
+    },
+    {
+      "field": "synthetic prompt-injection text",
+      "reason": "An inert benchmark fixture, not an executed instruction."
+    }
+  ],
+  "audit_version": "1.0",
+  "blocking_finding_count": 0,
+  "blocking_findings": [],
+  "not_scanned": [
+    "Binary files",
+    "Repository history and remote hosting metadata",
+    "Semantic re-identification beyond the configured patterns"
+  ],
+  "scanned_file_count": 15,
+  "status": "pass"
+}

@@ -43,3 +43,17 @@ injection, replay, rollback, and data-corruption risks.
 
 This review is bounded to the current files and does not guarantee that future model runs will
 remain free of sensitive or objectionable content.
+
+## v0.2.0 release addendum
+
+The 57 changed or new v0.2 text files, including the sanitized bundle, were scanned before release.
+The scan produced one self-referential lexical match: the `file_uri` detector's own URI-scheme
+regular-expression source in `src/atrb/publication.py`. Inspection confirmed that the line defines a
+detection pattern and does not contain a file URI value. After excluding only that documented
+scanner-definition match, the changed-source scan had zero blocking findings. A separate character
+scan found no Japanese or CJK text in the implementation, data, documentation, or public artifacts.
+
+The completed v0.2 Ollama bundle passed the artifact safety audit, the declared allowlist, and all 16
+manifest hashes. The public config replaces the local cases path with `data/cases_v02.json`; the
+recorded environment omits the hostname. Coding maps, human-coded inputs, residual ledgers, and all
+non-allowlisted files are excluded from the bundle.

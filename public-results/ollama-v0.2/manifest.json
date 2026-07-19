@@ -1,0 +1,99 @@
+{
+  "bundle_version": "0.2",
+  "case_count": 36,
+  "files": [
+    {
+      "bytes": 410,
+      "path": "config.json",
+      "sha256": "f9e2c65b79b5e8568e212d2979e07823a3d33fca29e0fa1e81ba02489d96e853"
+    },
+    {
+      "bytes": 83044,
+      "path": "cases.normalized.json",
+      "sha256": "4a3e41a25f9e3813d6cc6ce7aef16d98deb1fdb2f67e1f4565b6e4fde5b0df09"
+    },
+    {
+      "bytes": 212992,
+      "path": "raw_outputs.jsonl",
+      "sha256": "b30da750c8665db2a2d229dcf99f8679ef71944bf56c7b9e20981cf55056e51c"
+    },
+    {
+      "bytes": 212992,
+      "path": "raw_replications.jsonl",
+      "sha256": "b30da750c8665db2a2d229dcf99f8679ef71944bf56c7b9e20981cf55056e51c"
+    },
+    {
+      "bytes": 333246,
+      "path": "decisions.jsonl",
+      "sha256": "5fdf4d384a9d4c34f6c5c904ab2cf2b0c522adbda51fad094dfccffb8a3bd271"
+    },
+    {
+      "bytes": 7368,
+      "path": "metrics.json",
+      "sha256": "b4a6e56f538ddf8c798a064ce484673232c19e636a7a8ad83c05ed225bb55ed6"
+    },
+    {
+      "bytes": 11979,
+      "path": "replication_metrics.json",
+      "sha256": "c622d76cf6da335b953fce78f462992438743b36a5117abd06a7e71b9048cc25"
+    },
+    {
+      "bytes": 2787,
+      "path": "result_summary.json",
+      "sha256": "2955abadf8bd7f78aca924c7a061bbbf355b033c2a82684aeefb6190036ee106"
+    },
+    {
+      "bytes": 8855,
+      "path": "report.md",
+      "sha256": "cdf98a0e1f2f52015e139159f27fd572a1bd3e4d4ab1c6d1ca7b892d52d727a4"
+    },
+    {
+      "bytes": 2667,
+      "path": "failure_log.md",
+      "sha256": "2db84955866b39c5dec0d8c61d64623959850e75c5178195faaa9056d19c57ac"
+    },
+    {
+      "bytes": 2626,
+      "path": "positive_control_log.md",
+      "sha256": "3bae2fcf5592d7753fc5e1f16b2b018635f4661e17f9200502051979c936f27e"
+    },
+    {
+      "bytes": 1245,
+      "path": "near_miss_log.md",
+      "sha256": "b9697c4620a01bfd17699cf62cc768f481013a2b34f1e81ff3e816540bec9862"
+    },
+    {
+      "bytes": 2118,
+      "path": "field_inconsistency_log.md",
+      "sha256": "8b14be228c71998d3b8f34951c05803c6399948bf54bfaadb4605a6fff8c3b1b"
+    },
+    {
+      "bytes": 689,
+      "path": "runtime.json",
+      "sha256": "12d8e544be2433d67a1cbfb75099dfacd15d014a0a25bb74a2470e649c03514b"
+    },
+    {
+      "bytes": 589,
+      "path": "demo_script.md",
+      "sha256": "f1cef5e43e500d3df2ff9aa6e79d2421bb44a19ca30f5c7fe4278904bad1fd7b"
+    },
+    {
+      "bytes": 926,
+      "path": "safety_audit.json",
+      "sha256": "feef9b85eb08b88d160b61643b3ebd56d8629d4e4a0bf3635c2c65957981ef98"
+    }
+  ],
+  "generated_at": "2026-07-19T12:07:21.314878+00:00",
+  "mode": "ollama",
+  "model": "qwen3.6:35b-a3b",
+  "near_miss_count": 15,
+  "negative_control_count": 18,
+  "positive_control_count": 18,
+  "safety_audit_status": "pass",
+  "sanitization_actions": [
+    "Replaced the absolute cases path with data/cases_v02.json.",
+    "Regenerated demo commands with repository-relative paths.",
+    "Excluded coding blind maps, human coding inputs, residual ledgers, and all non-allowlisted files."
+  ],
+  "source_run_label": "v02-ollama-full"
+}

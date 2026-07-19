@@ -7,8 +7,8 @@ The original local run is not publication-safe as generated:
 - <code>config.json</code> contains an absolute Windows path with the local user-directory name.
 - <code>demo_script.md</code> contains absolute project and output paths.
 
-These fields are operational metadata, not experimental evidence. The publication exporter replaces
-the cases path with <code>data/cases.json</code> and regenerates demo commands with relative paths.
+These fields are operational metadata, not experimental evidence. The publication exporters replace
+the cases path with a repository-relative data path and regenerate demo commands with relative paths.
 
 ## Publication workflow
 
@@ -17,11 +17,13 @@ uv run atrb report runs/ollama --out runs/ollama/report.md
 uv run atrb prepare-publication runs/ollama --out public-results/ollama-v0.1
 uv run atrb safety-audit public-results/ollama-v0.1
 uv run atrb verify-publication public-results/ollama-v0.1
+uv run atrb v02 sanitize runs/v02-ollama-full --out public-results/ollama-v0.2
+uv run atrb v02 verify-sanitize public-results/ollama-v0.2
 ~~~
 
 The standalone re-audit is written beside the bundle so it does not invalidate manifest hashes.
 
-Do not publish <code>runs/ollama/</code> directly. Publish only the sanitized allowlisted bundle.
+Do not publish any <code>runs/</code> directory directly. Publish only a sanitized allowlisted bundle.
 
 ## Blocking scan classes
 

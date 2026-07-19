@@ -1,4 +1,4 @@
-# Scientific Results: Local Ollama Run
+# v0.1 Scientific Results: Local Ollama Run
 
 ## Run identity
 

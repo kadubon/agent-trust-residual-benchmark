@@ -1,0 +1,370 @@
+{
+  "experiment": "v0.2",
+  "interpretation": "Repeated calls characterize variation within this run configuration; they do not establish deployment stability.",
+  "latency_ms": {
+    "count": 179,
+    "max": 40791.001,
+    "mean": 7057.568,
+    "median": 6601.483,
+    "min": 3792.573
+  },
+  "parse_failure_count": 0,
+  "parse_failure_rate": 0.0,
+  "per_case": {
+    "N001": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.4,
+      "unique_response_hash_count": 2
+    },
+    "N002": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 5,
+      "permission_inconsistency_frequency": 1.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N003": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N004": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N005": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N006": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 5,
+      "permission_inconsistency_frequency": 1.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N007": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 5,
+      "permission_inconsistency_frequency": 1.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N008": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N009": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N010": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N011": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N012": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N013": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 5,
+      "permission_inconsistency_frequency": 1.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N014": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N015": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N016": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N017": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "N018": {
+      "acceptance_rate": 0.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P001": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P002": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P003": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P004": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P005": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P006": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P007": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P008": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P009": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P010": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P011": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 5,
+      "permission_inconsistency_frequency": 1.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P012": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P013": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P014": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P015": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P016": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P017": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    },
+    "P018": {
+      "acceptance_rate": 1.0,
+      "acceptance_variance": 0,
+      "permission_inconsistency_count": 0,
+      "permission_inconsistency_frequency": 0.0,
+      "replication_count": 5,
+      "response_hash_uniqueness_rate": 0.2,
+      "unique_response_hash_count": 1
+    }
+  },
+  "raw_replication_count": 180,
+  "replication_level_false_promotion_count": 20,
+  "replication_level_false_promotion_rate": 0.2222,
+  "replication_level_false_rejection_count": 0,
+  "replication_level_false_rejection_rate": 0.0,
+  "request_failure_count": 1,
+  "request_failure_rate": 0.0056,
+  "response_hash_uniqueness_rate": 0.2056,
+  "scope": "raw_model_output replications only",
+  "successful_response_sensitivity": {
+    "accept_recall": 1.0,
+    "balanced_accuracy": 0.8877,
+    "decision_count": 179,
+    "expected_accept_count": 90,
+    "expected_reject_count": 89,
+    "false_promotion_count": 20,
+    "false_promotion_rate": 0.2247,
+    "false_rejection_count": 0,
+    "false_rejection_rate": 0.0,
+    "interpretation": "Excludes request and parse failures so transport or schema failure is not mistaken for a model decision.",
+    "reject_recall": 0.7753,
+    "true_accept_count": 90,
+    "true_reject_count": 69
+  },
+  "successful_response_variation": {
+    "case_count_with_successful_response": 36,
+    "cases_with_multiple_successful_acceptance_values": 0,
+    "cases_with_multiple_successful_response_hashes": 0,
+    "interpretation": "Exact within-case response and acceptance variation among successful calls only."
+  },
+  "unique_response_hash_count": 37
+}

@@ -4,14 +4,14 @@ message: >-
   and the exact repository revision used for the experiment.
 title: Agent Trust and Residual Benchmark
 type: software
-version: 0.1.0
-date-released: 2026-07-18
+version: 0.2.0
+date-released: 2026-07-19
 authors:
   - name: Agent Trust and Residual Benchmark contributors
 abstract: >-
   A local, reproducible benchmark for measuring how progressively layered checks
-  handle evidence, authority, provenance, temporal claims, and unresolved
-  residual obligations in AI-agent outputs.
+  handle evidence, authority, provenance, temporal claims, unresolved residual
+  obligations, balanced controls, and near-miss cases in AI-agent outputs.
 keywords:
   - AI agents
   - AI safety
@@ -22,4 +22,4 @@ keywords:
   - trust
 license: Apache-2.0
 repository-code: https://github.com/kadubon/agent-trust-residual-benchmark
-url: https://github.com/kadubon/agent-trust-residual-benchmark/releases/tag/v0.1.0
+url: https://github.com/kadubon/agent-trust-residual-benchmark/releases/tag/v0.2.0

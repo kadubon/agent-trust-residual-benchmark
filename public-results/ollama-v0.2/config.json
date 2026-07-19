@@ -1,0 +1,17 @@
+{
+  "base_url": "http://localhost:11434",
+  "case_ids": null,
+  "cases_path": "data/cases_v02.json",
+  "continue_on_error": false,
+  "evaluation_time": "2026-07-18T09:30:00Z",
+  "experiment": "v0.2",
+  "mode": "ollama",
+  "model": "qwen3.6:35b-a3b",
+  "profile": "full",
+  "replications": 5,
+  "requested_mode": "ollama",
+  "stream": false,
+  "temperature": 0.0,
+  "think": false,
+  "timeout_seconds": 120.0
+}

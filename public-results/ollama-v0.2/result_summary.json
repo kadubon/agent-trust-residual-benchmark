@@ -1,0 +1,64 @@
+{
+  "data_integrity": {
+    "expected_final_decision_count": 36,
+    "final_decision_count": 36,
+    "final_decision_mismatches": [],
+    "missed_expected_failures": [],
+    "unexpected_final_failures": []
+  },
+  "experiment": "v0.2",
+  "mock_interpretation": null,
+  "mode": "ollama",
+  "observed": {
+    "case_count": 36,
+    "condition_count": 6,
+    "decision_count": 360,
+    "final_accept_recall": 1.0,
+    "final_balanced_accuracy": 1.0,
+    "final_false_promotion_count": 0,
+    "final_false_rejection_count": 0,
+    "final_reject_recall": 1.0,
+    "near_miss_count": 15,
+    "negative_control_count": 18,
+    "positive_control_count": 18,
+    "raw_false_promotion_count": 20,
+    "raw_false_rejection_count": 0,
+    "raw_replication_count": 180
+  },
+  "rationale_coding_status": "not_part_of_primary_metrics; use export-coding and import-coding",
+  "summary_type": "balanced_fixture_conformance_summary",
+  "supported_findings": [
+    {
+      "claim": "Balanced structured decision metrics were observed on v0.2 fixtures.",
+      "evidence": "Final accept recall=1.0, reject recall=1.0, balanced accuracy=1.0.",
+      "scope": "Only the included synthetic v0.2 fixtures."
+    },
+    {
+      "claim": "Positive, negative, and near-miss controls were evaluated separately.",
+      "evidence": "18 positive, 18 negative, and 15 near-miss fixtures.",
+      "scope": "Fixture composition, not population representativeness."
+    },
+    {
+      "claim": "Raw structured field consistency and replication variation were recorded.",
+      "evidence": "180 raw replications; permission inconsistency rate=0.1389.",
+      "scope": "Only this model or deterministic mock configuration and these calls."
+    },
+    {
+      "claim": "Final compatibility-adapter fixture conformance was measured.",
+      "evidence": "20/20 expected negative-control failure labels detected.",
+      "scope": "Lightweight local adapters; not validation of external implementations."
+    }
+  ],
+  "unsupported_inferences": [
+    "The experiment does not establish real-world agent safety.",
+    "The experiment does not provide a truth guarantee.",
+    "The experiment does not establish production execution success.",
+    "The experiment does not validate external PIC, FOST, PFG, CCR, or FCC implementations.",
+    "The experiment does not statistically generalize beyond the hand-authored fixtures.",
+    "Cumulative conditions do not isolate the causal effect of an individual layer.",
+    "Heuristic work estimates are not human labor time or real monetary cost.",
+    "Replications do not establish model stability across versions or hardware.",
+    "Rationale coding is separate from and does not repair structured decision metrics."
+  ],
+  "validity_status": "balanced_fixture_conformance_complete"
+}

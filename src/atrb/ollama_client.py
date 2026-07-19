@@ -3,12 +3,19 @@
 from __future__ import annotations
 
 from time import perf_counter
-from typing import Any
+from typing import Any, Protocol
 
 import httpx
 
 from atrb.config import DEFAULT_BASE_URL, DEFAULT_MODEL
-from atrb.models import BenchmarkCase
+
+
+class PromptCase(Protocol):
+    """Minimal case fields needed to build an Ollama prompt."""
+
+    user_task: str
+    scenario: str
+    agent_output: str
 
 
 class OllamaError(RuntimeError):
@@ -34,7 +41,7 @@ class OllamaClient:
         self.temperature = temperature
         self._client = httpx.Client(timeout=timeout_seconds, transport=transport)
 
-    def build_payload(self, case: BenchmarkCase) -> dict[str, Any]:
+    def build_payload(self, case: PromptCase) -> dict[str, Any]:
         """Build the auditable request payload used by tests and runtime."""
 
         return {
@@ -55,7 +62,7 @@ class OllamaClient:
             "options": {"temperature": self.temperature},
         }
 
-    def generate(self, case: BenchmarkCase) -> tuple[str, float]:
+    def generate(self, case: PromptCase) -> tuple[str, float]:
         """Return one response string or raise a contextual OllamaError."""
 
         started = perf_counter()

@@ -57,6 +57,13 @@ SENSITIVE_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
             r"172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b"
         ),
     ),
+    (
+        "recorded_hostname",
+        re.compile(
+            r'(?i)"(?:host|hostname|computer_name)"\s*:\s*'
+            r'"(?!localhost(?:"|:)|127\.0\.0\.1(?:"|:))[^"\s]+"'
+        ),
+    ),
 )
 
 

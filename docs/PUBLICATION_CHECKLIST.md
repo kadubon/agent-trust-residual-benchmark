@@ -1,5 +1,24 @@
 # Publication Checklist
 
+## v0.2.0 release checks
+
+- [x] Full 36-case, five-replication Ollama run completed without mock fallback.
+- [x] The one request timeout is retained and disclosed; 179/180 responses parsed successfully.
+- [x] Decision matrix contains 360/360 normalized entries.
+- [x] Positive, negative, near-miss, reuse, and action-permission metrics report denominators.
+- [x] Timeout-inclusive operational metrics and successful-response sensitivity are distinguished.
+- [x] Final fixture decisions match 36/36 and expected negative labels match 20/20.
+- [x] Scientific docs distinguish raw-model observations from deterministic fixture conformance.
+- [x] Rationale coding remains separate and no uncoded rationale-quality claim is made.
+- [x] Local absolute paths are removed from the v0.2 public bundle.
+- [x] Sixteen allowlisted publication artifacts are SHA-256 hashed and verified.
+- [x] Automated publication safety audit has zero blocking findings.
+- [x] Source and documentation safety review has zero blocking findings after inspecting the
+  scanner's self-referential pattern definition.
+- [x] Release identifier `v0.2.0` and citation metadata are synchronized.
+
+## Historical v0.1.0 release checks
+
 ## Required technical checks
 
 - [x] Full 18-case Ollama run completed without mock fallback.

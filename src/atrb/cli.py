@@ -16,7 +16,15 @@ from rich.console import Console
 from rich.table import Table
 
 from atrb.benchmark import run_benchmark
-from atrb.config import DEFAULT_BASE_URL, DEFAULT_CASES_PATH, DEFAULT_MODEL, PROJECT_ROOT, RunConfig
+from atrb.config import (
+    DEFAULT_BASE_URL,
+    DEFAULT_CASES_PATH,
+    DEFAULT_MODEL,
+    DEFAULT_V02_CASES_PATH,
+    DEFAULT_V02_EVALUATION_TIME,
+    PROJECT_ROOT,
+    RunConfig,
+)
 from atrb.mock_llm import MockLLM
 from atrb.ollama_client import OllamaClient, OllamaError
 from atrb.publication import (
@@ -27,6 +35,12 @@ from atrb.publication import (
 )
 from atrb.report import regenerate_report
 from atrb.runtime import estimate_from_run_directory, render_runtime_estimate
+from atrb.v02_coding import export_rationale_coding, import_rationale_coding
+from atrb.v02_mock import V02_MOCK_MODEL
+from atrb.v02_models import V02RunConfig
+from atrb.v02_publication import sanitize_v02_run, verify_v02_bundle
+from atrb.v02_report import regenerate_v02_report
+from atrb.v02_runner import run_v02_benchmark
 
 app = typer.Typer(
     name="atrb",
@@ -34,6 +48,12 @@ app = typer.Typer(
     no_args_is_help=True,
 )
 console = Console()
+v02_app = typer.Typer(
+    name="v02",
+    help="Run the additive balanced-control ATRB v0.2 experiment.",
+    no_args_is_help=True,
+)
+app.add_typer(v02_app, name="v02")
 
 
 class Mode(StrEnum):
@@ -41,6 +61,13 @@ class Mode(StrEnum):
 
     mock = "mock"
     ollama = "ollama"
+
+
+class V02Profile(StrEnum):
+    """Recommended v0.2 replication profiles."""
+
+    quick = "quick"
+    full = "full"
 
 
 def _parse_bool(value: str) -> bool:
@@ -54,7 +81,7 @@ def _parse_bool(value: str) -> bool:
 
 def _validate_cases_schema() -> tuple[bool, str]:
     try:
-        schema_path = PROJECT_ROOT / "data" / "schemas" / "case.schema.json"
+        schema_path = DEFAULT_CASES_PATH.parent / "schemas" / "case.schema.json"
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
         data = json.loads(DEFAULT_CASES_PATH.read_text(encoding="utf-8"))
         validator = jsonschema.Draft202012Validator(
@@ -64,6 +91,29 @@ def _validate_cases_schema() -> tuple[bool, str]:
         if errors:
             return False, errors[0]
         return True, f"{len(data)} cases valid"
+    except (OSError, ValueError, jsonschema.SchemaError) as exc:
+        return False, str(exc)
+
+
+def _validate_v02_cases_schema() -> tuple[bool, str]:
+    try:
+        schema_path = DEFAULT_V02_CASES_PATH.parent / "schemas" / "case_v02.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        data = json.loads(DEFAULT_V02_CASES_PATH.read_text(encoding="utf-8"))
+        validator = jsonschema.Draft202012Validator(
+            schema, format_checker=jsonschema.FormatChecker()
+        )
+        errors = sorted(error.message for item in data for error in validator.iter_errors(item))
+        if errors:
+            return False, errors[0]
+        positive = sum(item.get("control_type") == "positive" for item in data)
+        negative = sum(item.get("control_type") == "negative" for item in data)
+        near_miss = sum(bool(item.get("near_miss")) for item in data)
+        return (
+            True,
+            f"{len(data)} cases; {positive} positive, {negative} negative, "
+            f"{near_miss} near misses",
+        )
     except (OSError, ValueError, jsonschema.SchemaError) as exc:
         return False, str(exc)
 
@@ -91,6 +141,7 @@ def doctor(
     """Check core project readiness and optional local Ollama availability."""
 
     schema_ok, schema_detail = _validate_cases_schema()
+    v02_schema_ok, v02_schema_detail = _validate_v02_cases_schema()
     writable_ok, writable_detail = _writable_output()
     project_ok = (PROJECT_ROOT / "pyproject.toml").is_file() and (
         PROJECT_ROOT / "uv.lock"
@@ -125,9 +176,17 @@ def doctor(
     add("Ollama model", model_ok, model if model_ok else f"missing: {model}")
     add("mock mode", True, "deterministic mock available")
     add("case schema", schema_ok, schema_detail)
+    add("v0.2 case schema", v02_schema_ok, v02_schema_detail)
     add("output writable", writable_ok, writable_detail)
     console.print(table)
-    if not (python_ok and uv_path and project_ok and schema_ok and writable_ok):
+    if not (
+        python_ok
+        and uv_path
+        and project_ok
+        and schema_ok
+        and v02_schema_ok
+        and writable_ok
+    ):
         raise typer.Exit(code=1)
 
 
@@ -408,6 +467,259 @@ def verify_publication(
     console.print(
         "[green]Publication verification passed[/green] "
         f"{verification['manifest_hash_count']} hashes checked"
+    )
+
+
+def _execute_v02(
+    *,
+    mode: Mode,
+    profile: V02Profile,
+    replications: int | None,
+    out: Path,
+    model: str,
+    base_url: str,
+    think: str,
+    stream: str,
+    timeout: float,
+    cases: Path,
+    case_ids: list[str] | None,
+    continue_on_error: bool,
+) -> None:
+    """Build a v0.2 config, run it, and apply CLI-level failure policy."""
+
+    requested_mode: Literal["mock", "ollama"] = (
+        "mock" if mode is Mode.mock else "ollama"
+    )
+    replication_count = replications or (5 if profile is V02Profile.full else 3)
+    config = V02RunConfig(
+        mode=requested_mode,
+        requested_mode=requested_mode,
+        profile=profile.value,
+        model=V02_MOCK_MODEL if mode is Mode.mock else model,
+        base_url=base_url,
+        think=_parse_bool(think),
+        stream=_parse_bool(stream),
+        timeout_seconds=timeout,
+        temperature=0.0,
+        evaluation_time=DEFAULT_V02_EVALUATION_TIME,
+        replications=replication_count,
+        continue_on_error=continue_on_error,
+        cases_path=str(cases.resolve()),
+        case_ids=case_ids,
+    )
+    if config.stream:
+        console.print("[red]v0.2 requires non-streaming raw responses.[/red]")
+        raise typer.Exit(code=2)
+
+    client: OllamaClient | None = None
+    try:
+        if mode is Mode.ollama:
+            client = OllamaClient(
+                base_url=base_url,
+                model=model,
+                think=config.think,
+                timeout_seconds=timeout,
+                temperature=0.0,
+            )
+            if not client.model_available():
+                raise OllamaError(
+                    f"Ollama is reachable, but model '{model}' is not installed. "
+                    f"Run: ollama pull {model}"
+                )
+        result = run_v02_benchmark(config, out.resolve(), client)
+    except (OllamaError, OSError, ValueError, json.JSONDecodeError) as exc:
+        console.print(f"[red]v0.2 benchmark failed: {exc}[/red]")
+        raise typer.Exit(code=2) from exc
+    finally:
+        if client is not None:
+            client.close()
+
+    metrics = result["metrics"]
+    replication_metrics = result["replication_metrics"]
+    console.print(
+        f"[green]Completed v0.2[/green] {metrics['case_count']} cases, "
+        f"{replication_metrics['raw_replication_count']} raw replications, and "
+        f"{metrics['decision_count']} normalized decisions in {out.resolve()}"
+    )
+    request_failures = int(replication_metrics["request_failure_count"])
+    if request_failures and not continue_on_error:
+        console.print(
+            f"[red]{request_failures} request failure(s) were recorded. "
+            "Use --continue-on-error to accept a completed run with case-level failures.[/red]"
+        )
+        raise typer.Exit(code=4)
+
+
+@v02_app.command("run")
+def v02_run_command(
+    mode: Annotated[Mode, typer.Option("--mode", case_sensitive=False)] = Mode.mock,
+    out: Annotated[Path, typer.Option("--out")] = Path("runs/v02-mock"),
+    profile: Annotated[
+        V02Profile, typer.Option("--profile", case_sensitive=False)
+    ] = V02Profile.quick,
+    replications: Annotated[
+        int | None,
+        typer.Option(
+            "--replications",
+            min=1,
+            help="Override quick=3 or full=5 raw replications per case.",
+        ),
+    ] = None,
+    model: Annotated[str, typer.Option("--model")] = DEFAULT_MODEL,
+    base_url: Annotated[str, typer.Option("--base-url")] = DEFAULT_BASE_URL,
+    think: Annotated[str, typer.Option("--think")] = "false",
+    stream: Annotated[str, typer.Option("--stream")] = "false",
+    timeout: Annotated[float, typer.Option("--timeout", min=0.1)] = 120.0,
+    cases: Annotated[
+        Path, typer.Option("--cases", exists=True, dir_okay=False)
+    ] = DEFAULT_V02_CASES_PATH,
+    continue_on_error: Annotated[
+        bool,
+        typer.Option(
+            "--continue-on-error",
+            help="Complete with zero exit status when case-level requests fail.",
+        ),
+    ] = False,
+) -> None:
+    """Run balanced controls and replicated raw judgments across six conditions."""
+
+    _execute_v02(
+        mode=mode,
+        profile=profile,
+        replications=replications,
+        out=out,
+        model=model,
+        base_url=base_url,
+        think=think,
+        stream=stream,
+        timeout=timeout,
+        cases=cases,
+        case_ids=None,
+        continue_on_error=continue_on_error,
+    )
+
+
+@v02_app.command("report")
+def v02_report_command(
+    run_dir: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+    out: Annotated[Path | None, typer.Option("--out")] = None,
+) -> None:
+    """Regenerate v0.2 metrics, summary, and report from recorded artifacts."""
+
+    destination = (out or run_dir / "report.md").resolve()
+    try:
+        regenerate_v02_report(run_dir.resolve(), destination)
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        console.print(f"[red]v0.2 report generation failed: {exc}[/red]")
+        raise typer.Exit(code=2) from exc
+    console.print(f"[green]v0.2 report written[/green] {destination}")
+
+
+@v02_app.command("export-coding")
+def v02_export_coding_command(
+    run_dir: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+    out: Annotated[Path, typer.Option("--out")],
+) -> None:
+    """Export blinded raw rationales and a separate coding protocol."""
+
+    try:
+        result = export_rationale_coding(run_dir.resolve(), out.resolve())
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        console.print(f"[red]v0.2 coding export failed: {exc}[/red]")
+        raise typer.Exit(code=2) from exc
+    console.print(
+        f"[green]Blinded coding export written[/green] {result['output']} "
+        f"({result['blinded_record_count']} records)"
+    )
+
+
+@v02_app.command("import-coding")
+def v02_import_coding_command(
+    run_dir: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+    coding: Annotated[
+        Path, typer.Option("--coding", exists=True, dir_okay=False)
+    ],
+) -> None:
+    """Import one or more coders without changing primary decision metrics."""
+
+    try:
+        metrics = import_rationale_coding(run_dir.resolve(), coding.resolve())
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        console.print(f"[red]v0.2 coding import failed: {exc}[/red]")
+        raise typer.Exit(code=2) from exc
+    console.print(
+        f"[green]Rationale coding imported[/green] "
+        f"{metrics['aggregate']['coded_record_count']} records"
+    )
+
+
+@v02_app.command("sanitize")
+def v02_sanitize_command(
+    run_dir: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+    out: Annotated[Path, typer.Option("--out")] = Path(
+        "public-results/ollama-v0.2"
+    ),
+) -> None:
+    """Create an allowlisted, sanitized, hashed v0.2 result bundle."""
+
+    try:
+        manifest = sanitize_v02_run(run_dir.resolve(), out.resolve())
+    except (OSError, ValueError, PublicationSafetyError, json.JSONDecodeError) as exc:
+        console.print(f"[red]v0.2 sanitization failed: {exc}[/red]")
+        raise typer.Exit(code=3) from exc
+    console.print(
+        f"[green]v0.2 sanitized bundle ready[/green] {out.resolve()} "
+        f"({len(manifest['files'])} hashed artifacts)"
+    )
+
+
+@v02_app.command("verify-sanitize")
+def v02_verify_sanitize_command(
+    bundle_dir: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+) -> None:
+    """Verify v0.2 allowlist, hashes, and sanitized content without mutation."""
+
+    try:
+        verification = verify_v02_bundle(bundle_dir.resolve())
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
+        console.print(f"[red]v0.2 bundle verification failed: {exc}[/red]")
+        raise typer.Exit(code=2) from exc
+    if verification["status"] != "pass":
+        console.print(f"[red]v0.2 bundle verification failed:[/red] {verification}")
+        raise typer.Exit(code=3)
+    console.print(
+        f"[green]v0.2 bundle verification passed[/green] "
+        f"{verification['manifest_hash_count']} hashes checked"
+    )
+
+
+@v02_app.command("demo")
+def v02_demo_command(
+    mode: Annotated[Mode, typer.Option("--mode", case_sensitive=False)] = Mode.mock,
+    out: Annotated[Path, typer.Option("--out")] = Path("runs/v02-demo"),
+    model: Annotated[str, typer.Option("--model")] = DEFAULT_MODEL,
+    base_url: Annotated[str, typer.Option("--base-url")] = DEFAULT_BASE_URL,
+    think: Annotated[str, typer.Option("--think")] = "false",
+    timeout: Annotated[float, typer.Option("--timeout", min=0.1)] = 120.0,
+    continue_on_error: Annotated[
+        bool, typer.Option("--continue-on-error")
+    ] = False,
+) -> None:
+    """Run four representative balanced and near-miss fixtures."""
+
+    _execute_v02(
+        mode=mode,
+        profile=V02Profile.quick,
+        replications=3,
+        out=out,
+        model=model,
+        base_url=base_url,
+        think=think,
+        stream="false",
+        timeout=timeout,
+        cases=DEFAULT_V02_CASES_PATH,
+        case_ids=["N007", "N015", "P001", "P017"],
+        continue_on_error=continue_on_error,
     )
 
 

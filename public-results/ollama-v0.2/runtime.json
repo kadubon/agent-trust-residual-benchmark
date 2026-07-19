@@ -1,0 +1,21 @@
+{
+  "environment": {
+    "hostname_recorded": false,
+    "machine": "AMD64",
+    "operating_system": "Windows",
+    "operating_system_release": "10",
+    "python_version": "3.11.12"
+  },
+  "experiment": "v0.2",
+  "finished_at": "2026-07-19T11:41:05.364194+00:00",
+  "measurement_note": "Runtime is host-specific. Mock timing is deterministic demonstration data.",
+  "model_call_count": 180,
+  "model_elapsed_mean_ms": 7057.568,
+  "model_elapsed_median_ms": 6601.483,
+  "model_elapsed_total_ms": 1263304.619,
+  "parse_failure_count": 0,
+  "request_failure_count": 1,
+  "started_at": "2026-07-19T11:18:01.942221+00:00",
+  "successful_model_call_count": 179,
+  "wall_clock_ms": 1383421.063
+}
