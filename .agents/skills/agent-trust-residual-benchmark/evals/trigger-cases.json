@@ -1,0 +1,31 @@
+{
+  "skill": "agent-trust-residual-benchmark",
+  "positive": [
+    {"prompt":"Benchmark whether my LLM mistakes provider receipts for real outcomes.","reason":"receipt/outcome fixture"},
+    {"prompt":"Run a deterministic agent trust smoke test without a model.","reason":"mock mode"},
+    {"prompt":"Measure false promotion and false rejection in these agent safety fixtures.","reason":"core metrics"},
+    {"prompt":"Evaluate authority scope and temporal claims with local Ollama.","reason":"explicit model experiment"},
+    {"prompt":"Interpret existing ATRB metrics.json.","reason":"structured result interpretation"},
+    {"prompt":"Test safe reuse versus safe action allowance.","reason":"permission distinctions"},
+    {"prompt":"Benchmark provenance mismatch near misses.","reason":"fixture boundary"},
+    {"prompt":"Check verifier independence cases in the trust benchmark.","reason":"benchmark condition"},
+    {"prompt":"Run prompt injection controls for an agent safety benchmark.","reason":"ATRB fixture evaluation"},
+    {"prompt":"Sanitize a requested public benchmark result bundle.","reason":"publication workflow"}
+  ],
+  "negative": [
+    {"prompt":"Which LLM is smartest?","reason":"generic accuracy"},
+    {"prompt":"Certify our production agent is secure.","reason":"production certification"},
+    {"prompt":"Execute this customer refund.","reason":"real action"},
+    {"prompt":"Prove all AI agents are safe.","reason":"universal safety claim"},
+    {"prompt":"Review this verifier packet.","reason":"VEK routing"},
+    {"prompt":"Filter stale Graphiti memories.","reason":"CMGL routing"},
+    {"prompt":"Evaluate p-hacking by an autonomous scientist.","reason":"Audit-Closed routing"},
+    {"prompt":"Can this single agent result be settled?","reason":"PIC routing"}
+  ],
+  "ambiguous": [
+    {"prompt":"Benchmark agent safety.","expected":"activate if trust/residual fixtures are intended; otherwise clarify benchmark scope","reason":"benchmark may be generic"},
+    {"prompt":"Test permission handling.","expected":"activate if using ATRB cases or comparable fixture conformance","reason":"object unspecified"},
+    {"prompt":"The model accepted a receipt.","expected":"use ATRB for comparative fixture evaluation; PIC for one operational workflow","reason":"scope determines routing"},
+    {"prompt":"Publish our results.","expected":"use publication boundary only for ATRB artifacts; do not publish raw runs","reason":"artifact scope required"}
+  ]
+}

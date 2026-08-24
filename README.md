@@ -7,6 +7,13 @@ Agent Trust and Residual Benchmark (ATRB) is a minimal, local, reproducible expe
 compares unvalidated model judgments with progressively layered trust and residual checks. It is
 designed as a pre-paper public demonstration asset, not as an execution framework.
 
+## Agent Skill
+
+This repository includes an Agent Skills-compatible workflow at
+[`.agents/skills/agent-trust-residual-benchmark/SKILL.md`](.agents/skills/agent-trust-residual-benchmark/SKILL.md).
+Compatible agents can discover it from this repository, or copy it to a supported user skills directory
+such as `~/.agents/skills/agent-trust-residual-benchmark/`. The canonical implementation remains this repository.
+
 ## Release status and completed v0.2 experiment
 
 Version 0.2.0 is the current balanced-control release. It includes a completed local Ollama run with
