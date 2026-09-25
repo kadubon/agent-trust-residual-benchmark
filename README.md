@@ -7,6 +7,11 @@ Agent Trust and Residual Benchmark (ATRB) is a minimal, local, reproducible expe
 compares unvalidated model judgments with progressively layered trust and residual checks. It is
 designed as a pre-paper public demonstration asset, not as an execution framework.
 
+New readers can inspect [First Read](docs/FIRST_READ.md) and the existing
+[sanitized v0.2 bundle](public-results/ollama-v0.2/) without running anything.
+For a finite software exercise, use the [v0.2 mock path](#run-v02); it does not
+call Ollama and is not a model-performance experiment.
+
 ## Agent Skill
 
 This repository includes an Agent Skills-compatible workflow at
@@ -51,6 +56,9 @@ ID but the same independence group.
 
 ### Completed v0.2 result in one table
 
+The final 100% is fixture conformance, not production safety or an isolated
+causal effect of a layer. The historical measurements below are unchanged.
+
 The full run attempted 180 calls to `qwen3.6:35b-a3b`; 179 succeeded and one timed out. Primary
 system-level metrics treat the timeout as a fail-closed decision and also report it separately.
 
@@ -78,7 +86,15 @@ and validity limits.
 
 ### Run v0.2
 
-The deterministic quick run is the primary readiness check and needs no Ollama:
+First prepare a source checkout with Python 3.11+ and
+[uv](https://docs.astral.sh/uv/getting-started/installation/), then run `uv sync`
+from the repository root. That installation can access the network. Version
+0.2.0 is available as a GitHub release; no public PyPI distribution was found
+on September 25, 2026.
+
+After setup, the deterministic mock commands below write local run/report files
+to fresh output directories and need no Ollama. Mock decisions are constructed
+software fixtures, not observed model judgments:
 
 ~~~bash
 uv run atrb v02 run --mode mock --out runs/v02-mock
@@ -86,6 +102,8 @@ uv run atrb v02 report runs/v02-mock --out runs/v02-mock/report.md
 uv run atrb v02 demo --mode mock --out runs/v02-demo
 ~~~
 
+Optional live-model reproduction, requiring a separately installed and running
+Ollama server and model: these commands call the local model and write run files.
 The local Ollama quick and full profiles use `qwen3.6:35b-a3b`, `think:false`, `stream:false`,
 temperature 0, and a 120-second per-request timeout:
 
@@ -175,13 +193,18 @@ not prove real-world success. ATRB never performs the simulated actions.
 
 ## Installation
 
+The following section and unqualified `atrb run` commands describe the legacy
+v0.1 negative-only protocol retained in 0.2.0. Current balanced-control onboarding
+uses [`atrb v02`](#run-v02). All examples run from a prepared source checkout.
+
 Requirements:
 
 - Python 3.11 or newer
 - uv
 - Ollama only for the optional local-model condition
 
-From the project root:
+From the project root (installation uses the network; `doctor` checks local
+Ollama availability and creates/probes the local `runs/` directory):
 
 ~~~bash
 uv sync
@@ -195,6 +218,10 @@ uv run atrb run --mode mock --out runs/mock
 ~~~
 
 ## Ollama preparation
+
+Optional legacy v0.1 reproduction only: the following starts a server and
+downloads model weights. It is not required to inspect published results or
+use the mock path.
 
 Install and start Ollama locally, then obtain the benchmark model:
 
@@ -390,7 +417,9 @@ the corresponding ATRB condition is intended to isolate.
 | [Collective Capability Runtime (CCR)](https://github.com/kadubon/collective-capability-runtime) | A JSON-first coordination runtime that keeps tasks, evidence, disagreement, verification, contributor independence, and remaining work visible. | <code>ccr_independent_workcells</code> adds proposal, critique, verification, and integration workcells with independence metadata. |
 | [Future Claim Certifier](https://github.com/kadubon/future-claim-certifier) | Replayable validation of whether a time-bound claim is still active and authorized for a particular use. | <code>fcc_temporal_claims</code> adds issuance, expiry, observation-horizon, and verification-window checks. |
 
-For the broader project collection, see [kadubon's public repositories](https://github.com/kadubon?tab=repositories).
+For the broader research context, see the [Collective Intelligence Research and OSS Index](https://kadubon.github.io/github.io/collective-intelligence-index.html)
+and its [evaluation integrity](https://kadubon.github.io/github.io/collective-intelligence-index.html#problem-evaluation-integrity) route.
+The index is a discovery map, not validation of the benchmark or upstream tools.
 
 The modules under <code>src/atrb/adapters</code> are lightweight compatibility adapters inspired by
 these responsibilities. They are not claims of API compatibility, formal equivalence, validation of
